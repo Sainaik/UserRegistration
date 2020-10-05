@@ -1,0 +1,13 @@
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.exe
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.deps.json
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.runtimeconfig.json
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.runtimeconfig.dev.json
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.dll
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.pdb
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.csprojAssemblyReference.cache
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.AssemblyInfoInputs.cache
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.AssemblyInfo.cs
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.csproj.CoreCompileInputs.cache
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.dll
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.pdb
+C:\Users\saiku\source\repos\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.genruntimeconfig.cache
