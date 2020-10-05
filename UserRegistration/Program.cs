@@ -31,6 +31,18 @@ namespace UserRegistration
                 Console.WriteLine("Invalid First Name");
             }
 
+            Console.WriteLine("\nEnter the Last Name");
+            String lastName = Console.ReadLine();
+
+            if (NameValidation(lastName))
+            {
+                Console.WriteLine("Valid Last Name");
+            }
+            else
+            {
+                Console.WriteLine("Invalid Last Name");
+            }
+
         }
     }
 }
