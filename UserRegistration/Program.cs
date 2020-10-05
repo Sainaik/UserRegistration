@@ -6,12 +6,12 @@ namespace UserRegistration
     class Program
     {
 
-        public static bool phnoValidation(String phno)
+        public static bool passwordValidation(String password)
         {
-            String patternPN = "^[+][0-9]{1,3}[\\s][0-9]{10}$";
+            String patternPassword = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
-            Regex re = new Regex(patternPN);
-            return re.IsMatch(phno);
+            Regex re = new Regex(patternPassword);
+            return re.IsMatch(password);
         }
         static void Main(string[] args)
         {
@@ -19,16 +19,16 @@ namespace UserRegistration
 
             // to validate first name
 
-            Console.WriteLine("Enter the Phone Number");
-            String PhoneNumber = Console.ReadLine();
+            Console.WriteLine("Enter the Password");
+            String password = Console.ReadLine();
 
-            if (phnoValidation(PhoneNumber))
+            if (passwordValidation(password))
             {
-                Console.WriteLine("Valid Phone Number");
+                Console.WriteLine("Valid Password");
             }
             else
             {
-                Console.WriteLine("Invalid Phone Number");
+                Console.WriteLine("Invalid Password");
             }
 
            
