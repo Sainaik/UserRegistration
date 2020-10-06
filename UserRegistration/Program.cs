@@ -8,8 +8,8 @@ namespace UserRegistration
         // Pattern Validation 
         public static bool PatternValidation(String input, String pattern)
         {
-            Regex re = new Regex(pattern);
-            return re.IsMatch(input);
+            Regex regexObject = new Regex(pattern);
+            return regexObject.IsMatch(input);
         }
 
         // validation method to pattern validation
