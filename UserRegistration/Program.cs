@@ -6,12 +6,19 @@ namespace UserRegistration
     class Program
     {
 
-        public static bool NameValidation(String firstName)
+        public static bool EmailValidation(String email)
         {
-            String patternFN = "^[A-Z]{1}[a-z]{2,}$";
 
-            Regex re = new Regex(patternFN);
-            return re.IsMatch(firstName);
+            //String pattern = @"^([a-z][a-z0-9.+_-]*@([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]*[a-z0-9])?)$";
+
+            //String pattern = @"^[a-z]+[-+*.]?[0-9a-z]*@[a-z0-9]+\.(\.?[a-z]{2,}){1,2}$";
+
+            String pattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.(\.?[a-z]{2,}){1,2}$";
+
+            Regex r = new Regex(pattern);
+
+            return r.IsMatch(email);
+
         }
         static void Main(string[] args)
         {
@@ -19,30 +26,21 @@ namespace UserRegistration
 
             // to validate first name
 
-            Console.WriteLine("Enter the First Name");
-            String firstName = Console.ReadLine();
+            
+            Console.WriteLine("Enter the Email");
 
-            if (NameValidation(firstName))
+            String email = Console.ReadLine();
+
+            if (EmailValidation(email))
             {
-                Console.WriteLine("Valid First Name");
+                Console.WriteLine("Valid email");
             }
             else
             {
-                Console.WriteLine("Invalid First Name");
+                Console.WriteLine("Invalid email");
             }
 
-            Console.WriteLine("\nEnter the Last Name");
-            String lastName = Console.ReadLine();
-
-            if (NameValidation(lastName))
-            {
-                Console.WriteLine("Valid Last Name");
-            }
-            else
-            {
-                Console.WriteLine("Invalid Last Name");
-            }
-
+            
         }
     }
 }
