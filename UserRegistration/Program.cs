@@ -40,23 +40,24 @@ namespace UserRegistration
             String firstName = validation(firstNamePattern);
 
             Console.WriteLine("Enter the Last Name(First letter should be capital)");
-           
+
+            // to validate Last name
             String lastNamePattern = "^[A-Z]{1}[a-z]{2,}$";
             String lastName = validation(lastNamePattern);
 
-
+            // to validate Email 
             Console.WriteLine("Enter the Email");
 
             String emailPattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.(\.?[a-z]{2,}){1,2}$";
             String email = validation(emailPattern);
 
-
+            // to validate Phone number
             Console.WriteLine("Enter the phone Number");
 
             String phonePattern = "^[+][0-9]{1,3}[\\s][0-9]{10}$";
             String phoneNo = validation(phonePattern);
 
-
+            // to validate Password
             Console.WriteLine("Enter the Password");
 
             String passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
