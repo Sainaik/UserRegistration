@@ -1,68 +1,82 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace UserRegistration
 {
     class Program
-    {
-        // Pattern Validation 
-        public static bool PatternValidation(String input, String pattern)
-        {
-            Regex regexObject = new Regex(pattern);
-            return regexObject.IsMatch(input);
-        }
+    { 
 
-        // validation method to pattern validation
-        public static String validation(String pattern)
-        {
-            String inputString = Console.ReadLine();
+        static ValidationContext context;
+        static List<ValidationResult> result = new List<ValidationResult>();
+        static bool isValid;
 
-            while (!PatternValidation(inputString, pattern))
+        static void Validate(User userObject, string fieldName)
+        {
+
+            string tempFieldName = fieldName;
+
+            fieldName = "set_" + fieldName;
+
+            Type userType = Type.GetType("UserRegistration.User");
+
+            MethodInfo method = userType.GetMethod(fieldName);
+
+            string input;  
+           
+            while (true)
             {
-                Console.WriteLine(inputString+ " is invalid!\nEnter again!!");
-                inputString = Console.ReadLine();
+                //getting input from user
+                input = Console.ReadLine();
+
+                //method.Invoke()
+                method.Invoke(userObject, new object[]{ input });
+                
+
+                isValid = Validator.TryValidateObject(userObject, context, result, true);
+
+                //valdating the input
+                if (!isValid)
+                {
+                    Console.WriteLine(result[result.Count - 1].ErrorMessage);
+                    Console.WriteLine("Please Enter your "+ tempFieldName +" Again!!");
+                }
+                else
+                {
+                    break;
+                }
             }
-            Console.WriteLine(inputString + " is Valid\n");
 
-            return inputString;
-
-        } 
-
+        }
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to User Registration!");
 
-            // to validate first name
+            User userObject = new User();
+            context = new ValidationContext(userObject, null, null);
 
-            Console.WriteLine("Enter the First Name(First letter should be capital)");
+
+            Console.WriteLine("Enter your First Name");
+            Validate(userObject, "FirstName");
             
-            String firstNamePattern = "^[A-Z]{1}[a-z]{2,}$";
-            String firstName = validation(firstNamePattern);
 
-            Console.WriteLine("Enter the Last Name(First letter should be capital)");
+            Console.WriteLine("\nEnter your Last Name");
+            Validate(userObject, "LastName");
+            
 
-            // to validate Last name
-            String lastNamePattern = "^[A-Z]{1}[a-z]{2,}$";
-            String lastName = validation(lastNamePattern);
+            Console.WriteLine("\nEnter your Email");
+            Validate(userObject, "EmailId");
 
-            // to validate Email 
-            Console.WriteLine("Enter the Email");
+            
+            Console.WriteLine("\nEnter your Phone Number");
+            Validate(userObject, "PhoneNumber");
 
-            String emailPattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.(\.?[a-z]{2,}){1,2}$";
-            String email = validation(emailPattern);
+            Console.WriteLine("\nEnter your Password");
+            Validate(userObject, "Password");
 
-            // to validate Phone number
-            Console.WriteLine("Enter the phone Number");
-
-            String phonePattern = "^[+][0-9]{1,3}[\\s][0-9]{10}$";
-            String phoneNo = validation(phonePattern);
-
-            // to validate Password
-            Console.WriteLine("Enter the Password");
-
-            String passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
-            String password = validation(passwordPattern);
-
+            userObject.GetUserDetails();
+            
         }
     }
 }
