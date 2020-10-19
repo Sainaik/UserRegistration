@@ -16,7 +16,6 @@ namespace UserRegistration
                     bool match = re.IsMatch(inp) ? true : throw new InvalidUserDetailException("Invalid user Detail");
                     return match;
                 };
-
             ismatch = b(input,pattern);
             return ismatch;
         }
