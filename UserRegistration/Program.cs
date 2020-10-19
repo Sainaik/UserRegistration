@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 
 namespace UserRegistration
@@ -8,7 +9,9 @@ namespace UserRegistration
         public static bool PatternValidation(String input, String pattern)
         {
             Regex re = new Regex(pattern);
-            return re.IsMatch(input);
+
+            bool isMatch = re.IsMatch(input) ? true : throw new InvalidUserDetailException("Invalid user Detail");
+            return isMatch;
         }
 
 

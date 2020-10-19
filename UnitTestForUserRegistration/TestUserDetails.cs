@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UserRegistration;
+
 namespace UnitTestForUserRegistration
 {
     [TestClass]
@@ -20,21 +21,26 @@ namespace UnitTestForUserRegistration
 
         }
 
-        //UC 10 TC 10.2 Invalid Names
+        //UC 12 TC 12.1 Invalid Names UserExcepition
         [TestMethod]
-        [DataRow("sai", false)]
-        [DataRow("Na", false)]
-        [DataRow("12Asdf", false)]
-        public void TestPatternValidation_GivenInValidName_returnFalse(string inputFirstName, bool expected)
+        [DataRow("sai", "Invalid user Detail")]
+        [DataRow("Na", "Invalid user Detail")]
+        [DataRow("12Asdf", "Invalid user Detail")]
+        public void TestPatternValidation_GivenInValidName_ThowsUserException(string inputFirstName,string expected)
         {
-            string FirstNamePattern = @"^[A-Z][a-z ]{2,}$";
-            bool actual = Program.PatternValidation(inputFirstName, FirstNamePattern);
+            try{
+                string FirstNamePattern = @"^[A-Z][a-z ]{2,}$";
+                Program.PatternValidation(inputFirstName, FirstNamePattern);
+            }
+            catch (InvalidUserDetailException e)
+            {
 
-            Assert.AreEqual(expected, actual);
+                Assert.AreEqual(expected, e.Message);
+            }
 
         }
 
-        //UC 10 TC 10.3 Valid EmailIDs
+        //UC 10 TC 10.2 Valid EmailIDs
         [TestMethod]
         [DataRow("sai@gmail.com", true)]
         [DataRow("sai.123@gmail.com", true)]
@@ -48,22 +54,27 @@ namespace UnitTestForUserRegistration
 
         }
 
-        //UC 10 TC 10.4 Invalid EmailIDs
+        //UC 10 TC 12.2 Invalid EmailIDs
         [TestMethod]
-        [DataRow("Sai@gmail.com", false)]
-        [DataRow("Na", false)]
-        [DataRow("saigmail.com", false)]
-        [DataRow("sai@gmail.com.com", false)]
-        public void TestPatternValidation_GivenInValidEmailId_returnFalse(string EmailId, bool expected)
+        [DataRow("Sai@gmail.com", "Invalid user Detail")]
+        [DataRow("Na", "Invalid user Detail")]
+        [DataRow("saigmail.com", "Invalid user Detail")]
+        [DataRow("sai@gmail.com.com", "Invalid user Detail")]
+        public void TestPatternValidation_GivenInValidEmailId_ThowsUserException(string EmailId, string expected)
         {
-            string emailIdPattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.[a-z]{2,}(/.[a-z]{2,})?$";
-            bool actual = Program.PatternValidation(EmailId, emailIdPattern );
+            try
+            {
+                string emailIdPattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.[a-z]{2,}(/.[a-z]{2,})?$";
+                Program.PatternValidation(EmailId, emailIdPattern);
+            }
+            catch (InvalidUserDetailException e)
+            {
 
-            Assert.AreEqual(expected, actual);
-
+                Assert.AreEqual(expected, e.Message);
+            }
         }
 
-        //UC 10 TC 10.5 Valid Phone Numbers
+        //UC 10 TC 10.3 Valid Phone Numbers
         [TestMethod]
         [DataRow("+919087654321", true)]
         [DataRow("+919012345678", true)]
@@ -78,22 +89,27 @@ namespace UnitTestForUserRegistration
 
         }
 
-        //UC 10 TC 10.6 Invalid Phone Numbers
+        //UC 12 TC 12.3 Invalid Phone Numbers
         [TestMethod]
-        [DataRow("9087654321", false)]
-        [DataRow("91 9012345678", false)]
-        [DataRow("4321", false)]
-        [DataRow("+91A B9012345678", false)]
-        public void TestPatternValidation_GivenInValidPhoneNumber_returnFalse(string phoneNumber, bool expected)
+        [DataRow("9087654321", "Invalid user Detail")]
+        [DataRow("91 9012345678", "Invalid user Detail")]
+        [DataRow("4321", "Invalid user Detail")]
+        [DataRow("+91A B9012345678", "Invalid user Detail")]
+        public void TestPatternValidation_GivenInValidPhoneNumber_ThowsUserException(string phoneNumber, string expected)
         {
-            string phonePattern = "^[+][0-9]{1,3}(\\s)?[0-9]{10}$";
-            bool actual = Program.PatternValidation(phoneNumber, phonePattern);
+            try
+            {
+                string phonePattern = "^[+][0-9]{1,3}(\\s)?[0-9]{10}$";
+                bool actual = Program.PatternValidation(phoneNumber, phonePattern);
+            }
+            catch (InvalidUserDetailException e)
+            {
 
-            Assert.AreEqual(expected, actual);
-
+                Assert.AreEqual(expected, e.Message);
+            }
         }
 
-        //UC 10 TC 10.7 valid Phone Numbers
+        //UC 10 TC 10.4 valid Phone Numbers
         [TestMethod]
         [DataRow("sai@123A", true)]
         [DataRow("sai*123C", true)]
@@ -107,33 +123,43 @@ namespace UnitTestForUserRegistration
 
         }
 
-        //UC 10 TC 10.8 Invalid Passwords
+        //UC 12 TC 12.4 Invalid Passwords
         [TestMethod]
-        [DataRow("sai@123", false)]
-        [DataRow("sai123C", false)]
-        [DataRow("SaiABC.,123", false)]
-        public void TestPatternValidation_GivenInValidPassword_returnFalse(string password, bool expected)
+        [DataRow("sai@123", "Invalid user Detail")]
+        [DataRow("sai123C", "Invalid user Detail")]
+        [DataRow("SaiABC.,123", "Invalid user Detail")]
+        public void TestPatternValidation_GivenInValidPassword_ThowsUserException(string password, string expected)
         {
-            string passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
-            bool actual = Program.PatternValidation(password, passwordPattern);
+            try
+            {
+                string passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+                bool actual = Program.PatternValidation(password, passwordPattern);
+            }
+            catch (InvalidUserDetailException e)
+            {
 
-            Assert.AreEqual(expected, actual);
-
+                Assert.AreEqual(expected, e.Message);
+            }
         }
 
 
 
         //UC 11 Multiple Entry Email Ids are invalid
         [TestMethod]
-        [DataRow("sai@gmail.com sai.123@gmail.com", false)]
+        [DataRow("sai@gmail.com sai.123@gmail.com", "Invalid user Detail")]
         
-        public void TestPatternValidation_GivenMultipleEntrymailId_returnFalse(string EmailId, bool expected)
+        public void TestPatternValidation_GivenMultipleEntrymailId_ThowsUserException(string EmailId, string expected)
         {
-            string emailIdPattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.(\.?[a-z]{2,}){1,2}$";
-            bool actual = Program.PatternValidation(EmailId, emailIdPattern);
+            try
+            {
+                string emailIdPattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.(\.?[a-z]{2,}){1,2}$";
+                bool actual = Program.PatternValidation(EmailId, emailIdPattern);
+            }
+            catch (InvalidUserDetailException e)
+            {
 
-            Assert.AreEqual(expected, actual);
-
+                Assert.AreEqual(expected, e.Message);
+            }
         }
 
 
