@@ -1,82 +1,72 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace UserRegistration
 {
-    class Program
-    { 
-
-        static ValidationContext context;
-        static List<ValidationResult> result = new List<ValidationResult>();
-        static bool isValid;
-
-        static void Validate(User userObject, string fieldName)
+    public class Program
+    {
+        public static bool PatternValidation(String input, String pattern)
         {
+            Regex re = new Regex(pattern);
+            return re.IsMatch(input);
+        }
 
-            string tempFieldName = fieldName;
 
-            fieldName = "set_" + fieldName;
+        public static String validation(String pattern)
+        {
+            String inputString = Console.ReadLine();
 
-            Type userType = Type.GetType("UserRegistration.User");
-
-            MethodInfo method = userType.GetMethod(fieldName);
-
-            string input;  
-           
-            while (true)
+            while (!PatternValidation(inputString, pattern))
             {
-                //getting input from user
-                input = Console.ReadLine();
-
-                //method.Invoke()
-                method.Invoke(userObject, new object[]{ input });
-                
-
-                isValid = Validator.TryValidateObject(userObject, context, result, true);
-
-                //valdating the input
-                if (!isValid)
-                {
-                    Console.WriteLine(result[result.Count - 1].ErrorMessage);
-                    Console.WriteLine("Please Enter your "+ tempFieldName +" Again!!");
-                }
-                else
-                {
-                    break;
-                }
+                Console.WriteLine(inputString + " is invalid!\nEnter again!!");
+                inputString = Console.ReadLine();
             }
+            Console.WriteLine(inputString + " is Valid\n");
+
+            return inputString;
 
         }
+
         static void Main(string[] args)
         {
+            Console.WriteLine("Welcome to User Registration!");
 
-            User userObject = new User();
-            context = new ValidationContext(userObject, null, null);
+            User user = new User();
+
+            // to validate first name
+
+            Console.WriteLine("Enter the First Name(First letter should be capital)");
+
+            String firstNamePattern = "^[A-Z]{1}[a-z]{2,}$";
+            user.FirstName= validation(firstNamePattern);
+
+            Console.WriteLine("Enter the Last Name(First letter should be capital)");
+
+            String lastNamePattern = "^[A-Z]{1}[a-z]{2,}$";
+            user.LastName = validation(lastNamePattern);
 
 
-            Console.WriteLine("Enter your First Name");
-            Validate(userObject, "FirstName");
-            
+            Console.WriteLine("Enter the Email");
 
-            Console.WriteLine("\nEnter your Last Name");
-            Validate(userObject, "LastName");
-            
+            String emailPattern = @"^[a-z]+([-+*.]?[0-9a-z])*@[a-z0-9]+\.[a-z]{2,}(/.[a-z]{2,})?$";
+            user.EmailId = validation(emailPattern);
 
-            Console.WriteLine("\nEnter your Email");
-            Validate(userObject, "EmailId");
 
-            
-            Console.WriteLine("\nEnter your Phone Number");
-            Validate(userObject, "PhoneNumber");
+            Console.WriteLine("Enter the phone Number");
 
-            Console.WriteLine("\nEnter your Password");
-            Validate(userObject, "Password");
+            String phonePattern = "^[+][0-9]{1,3}[\\s][0-9]{10}$";
+            user.PhoneNumber = validation(phonePattern);
 
-            userObject.GetUserDetails();
-            
+
+            Console.WriteLine("Enter the Password");
+
+            String passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+            user.Password = validation(passwordPattern);
+
+            Console.WriteLine($"User Registation of User: {user.FirstName} completed");
+
+
+
         }
     }
 }
