@@ -8,10 +8,16 @@ namespace UserRegistration
     {
         public static bool PatternValidation(String input, String pattern)
         {
-            Regex re = new Regex(pattern);
+            bool ismatch = false;
 
-            bool isMatch = re.IsMatch(input) ? true : throw new InvalidUserDetailException("Invalid user Detail");
-            return isMatch;
+            Func<string, string, bool> b = (inp,patt) =>
+                {
+                    Regex re = new Regex(patt);
+                    bool match = re.IsMatch(inp) ? true : throw new InvalidUserDetailException("Invalid user Detail");
+                    return match;
+                };
+            ismatch = b(input,pattern);
+            return ismatch;
         }
 
 
